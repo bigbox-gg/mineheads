@@ -29,7 +29,11 @@ public class MinecraftHeadsProvider {
         // Load all the data.
         ArrayList<Head> tempData = new ArrayList<>(42000);
 
-        // TODO
+        for (MinecraftHeadsCategories category : MinecraftHeadsCategories.values()) {
+
+        }
+
+
         return tempData;
     }
 
@@ -69,6 +73,10 @@ public class MinecraftHeadsProvider {
             e.printStackTrace();
             return false;
         }
+    }
+
+    public ArrayList<Head> loadCategory(MinecraftHeadsCategories category) {
+
     }
 
 }

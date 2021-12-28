@@ -1,9 +1,9 @@
 package gg.bigbox.minecraft.plugins.mineheads.api;
 
-import gg.bigbox.minecraft.plugins.mineheads.api.Models.Head;
+import gg.bigbox.minecraft.plugins.mineheads.api.Models.HeadImpl;
 
 public interface MineHeadsConverter<T> {
 
-    T convertHead(Head head);
+    T convertHead(HeadImpl head);
 
 }

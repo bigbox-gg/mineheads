@@ -2,7 +2,7 @@ package gg.bigbox.minecraft.plugins.mineheads.minestom;
 
 import gg.bigbox.minecraft.plugins.mineheads.api.MineHeads;
 import gg.bigbox.minecraft.plugins.mineheads.api.MinecraftHeads.MinecraftHeadsProvider;
-import gg.bigbox.minecraft.plugins.mineheads.api.Models.Head;
+import gg.bigbox.minecraft.plugins.mineheads.api.Models.HeadImpl;
 import gg.bigbox.minecraft.plugins.mineheads.minestom.Events.MineHeadsReadyMinestomEvent;
 import lombok.Getter;
 import net.minestom.server.MinecraftServer;
@@ -15,7 +15,7 @@ import java.util.logging.Logger;
 
 public class MineHeadsMinestomImpl extends Extension implements MineHeads {
 
-    private ArrayList<Head> data;
+    private ArrayList<HeadImpl> data;
 
     @Getter
     private final MineHeadMinestomConverter converter = new MineHeadMinestomConverter();
@@ -50,7 +50,7 @@ public class MineHeadsMinestomImpl extends Extension implements MineHeads {
     }
 
     @Override
-    public Optional<Head> findHead(String name) {
+    public Optional<HeadImpl> findHead(String name) {
         for (int i = 0; i < data.size(); i++) {
             if (data.get(i).getName().equals(name)) {
                 return Optional.of(data.get(i));
@@ -61,8 +61,8 @@ public class MineHeadsMinestomImpl extends Extension implements MineHeads {
     }
 
     @Override
-    public List<Head> findHeadByTerm(String searchTerm) {
-        ArrayList<Head> tempList = new ArrayList<>();
+    public List<HeadImpl> findHeadByTerm(String searchTerm) {
+        ArrayList<HeadImpl> tempList = new ArrayList<>();
 
         for (int i = 0; i < data.size(); i++) {
             if (data.get(i).getSearchableBy().contains(searchTerm)) {

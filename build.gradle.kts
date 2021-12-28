@@ -31,4 +31,9 @@ allprojects {
             languageVersion.set(JavaLanguageVersion.of(17))
         }
     }
+
+    dependencies {
+        // https://mvnrepository.com/artifact/com.google.code.gson/gson
+        implementation("com.google.code.gson:gson:2.8.9")
+    }
 }

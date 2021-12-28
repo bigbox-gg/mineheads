@@ -1,22 +1,15 @@
 package gg.bigbox.minecraft.plugins.mineheads.api.Models;
 
-import lombok.Getter;
-
 import java.util.List;
 
-public class Head {
-    @Getter
-    protected final String name;
+public interface Head {
 
-    @Getter
-    protected final List<String> searchableBy;
+    String getId();
 
-    @Getter
-    protected final String skinTexture;
+    String getName();
 
-    protected Head(String name, List<String> searchableBy, String skinTexture) {
-        this.name = name;
-        this.searchableBy = searchableBy;
-        this.skinTexture = skinTexture;
-    }
+    List<String> getSearchableBy();
+
+    String getSkinData();
+
 }
