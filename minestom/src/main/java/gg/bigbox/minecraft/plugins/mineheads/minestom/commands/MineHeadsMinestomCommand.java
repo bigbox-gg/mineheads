@@ -10,16 +10,14 @@ import org.jetbrains.annotations.NotNull;
 
 public class MineHeadsMinestomCommand extends Command {
 
-    private final MineHeads extension;
-
     public MineHeadsMinestomCommand(MineHeads extension) {
         super("mineheads", "mh");
-
-        this.extension = extension;
 
         setCondition(this::isAllowed);
 
         setDefaultExecutor(this::defaultExecutor);
+
+        addSubcommand(new MineHeadsSearchMinestomCommand(extension));
     }
 
     private void defaultExecutor(@NotNull CommandSender sender, @NotNull CommandContext context) {
