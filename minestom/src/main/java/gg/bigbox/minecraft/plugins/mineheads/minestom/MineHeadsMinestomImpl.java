@@ -67,6 +67,7 @@ public class MineHeadsMinestomImpl extends Extension implements MineHeads {
 
     @Override
     public @NotNull Optional<Head> findHead(String name) {
+        //TODO: Case insensitive
         for (int i = 0; i < dataStore.getHeads().size(); i++) {
             if (dataStore.getHeads().get(i).getName().equals(name)) {
                 return Optional.of(dataStore.getHeads().get(i));
@@ -78,6 +79,7 @@ public class MineHeadsMinestomImpl extends Extension implements MineHeads {
 
     @Override
     public @NotNull List<Head> findHeadByTerm(String searchTerm) {
+        //TODO: Case insensitive
         return dataStore.getHeads()
                 .stream()
                 .filter(head -> head.getSearchableBy().contains(searchTerm))
@@ -86,6 +88,7 @@ public class MineHeadsMinestomImpl extends Extension implements MineHeads {
 
     @Override
     public @NotNull List<Head> findHeadByCategory(HeadCategory category) {
+        //TODO: Case insensitive
         return dataStore.getHeads()
                 .stream()
                 .filter(head -> head.getCategoryName().equals(category.getName()))
@@ -94,6 +97,7 @@ public class MineHeadsMinestomImpl extends Extension implements MineHeads {
 
     @Override
     public @NotNull List<Head> findHeadByCategoryName(String name) {
+        //TODO: Case insensitive
         return dataStore.getHeads()
                 .stream()
                 .filter(head -> head.getCategoryName().equals(name))
