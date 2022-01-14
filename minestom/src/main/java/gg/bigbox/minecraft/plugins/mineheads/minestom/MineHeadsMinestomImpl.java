@@ -4,12 +4,14 @@ import gg.bigbox.minecraft.plugins.mineheads.api.Head;
 import gg.bigbox.minecraft.plugins.mineheads.api.HeadCategory;
 import gg.bigbox.minecraft.plugins.mineheads.api.MineHeads;
 import gg.bigbox.minecraft.plugins.mineheads.api.MineHeadsDatastore;
+import gg.bigbox.minecraft.plugins.mineheads.api.events.MineHeadsHeadClickEvent;
 import gg.bigbox.minecraft.plugins.mineheads.api.events.MineHeadsReadyEvent;
 import gg.bigbox.minecraft.plugins.mineheads.minestom.commands.MineHeadsMinestomCommand;
 import gg.bigbox.minecraft.plugins.mineheads.minestom.datastores.MineHeadsDatastoreMinestomImpl;
 import lombok.Getter;
 import lombok.SneakyThrows;
 import net.minestom.server.MinecraftServer;
+import net.minestom.server.event.player.PlayerUseItemEvent;
 import net.minestom.server.extensions.Extension;
 import net.minestom.server.item.ItemStack;
 import net.minestom.server.item.metadata.PlayerHeadMeta;
@@ -52,6 +54,22 @@ public class MineHeadsMinestomImpl extends Extension implements MineHeads {
 
         // Advise everyone that MineHeads is ready
         getEventNode().call(new MineHeadsReadyEvent());
+
+        // Listen for block use
+        getEventNode().addListener(PlayerUseItemEvent.class, event -> {
+            if (event.isCancelled()) {
+                return;
+            }
+
+            // Call MineHeadsHeadClickEvent in case this itemstack
+            // is a head
+            if (isHead(event.getItemStack())) {
+                getEventNode().call(new MineHeadsHeadClickEvent(
+                        event.getPlayer(),
+                        event.getItemStack()
+                ));
+            }
+        });
     }
 
 
