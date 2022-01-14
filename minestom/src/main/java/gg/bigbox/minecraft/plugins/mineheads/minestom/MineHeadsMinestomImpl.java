@@ -66,7 +66,8 @@ public class MineHeadsMinestomImpl extends Extension implements MineHeads {
             if (isHead(event.getItemStack())) {
                 getEventNode().call(new MineHeadsHeadClickEvent(
                         event.getPlayer(),
-                        event.getItemStack()
+                        event.getItemStack(),
+                        getHeadFrom(event.getItemStack()).get()
                 ));
             }
         });
@@ -84,26 +85,38 @@ public class MineHeadsMinestomImpl extends Extension implements MineHeads {
     }
 
     @Override
-    public @NotNull Optional<Head> findHead(String name) {
-        for (int i = 0; i < dataStore.getHeads().size(); i++) {
-            if (Utils.stringMatch(dataStore.getHeads().get(i).getName(), name)) {
-                return Optional.of(dataStore.getHeads().get(i));
-            }
-        }
-
-        return Optional.empty();
+    public @NotNull Optional<Head> findHeadById(String headId, String providerName) {
+        return dataStore.getHeads()
+                .stream()
+                .filter(
+                        head -> Utils.stringMatch(head.getId(), headId)
+                                && Utils.stringMatch(head.getProviderName(), providerName)
+                )
+                .findFirst();
     }
 
     @Override
-    public @NotNull List<Head> findHeadByTerm(String searchTerm) {
+    public @NotNull Optional<Head> findHeadByName(String name, String providerName) {
         return dataStore.getHeads()
                 .stream()
-                .filter(head -> head.getSearchableBy().stream().anyMatch(s1 -> Utils.stringMatch(s1, searchTerm)))
+                .filter(
+                        head -> Utils.stringMatch(head.getName(), name)
+                                && Utils.stringMatch(head.getProviderName(), providerName)
+                )
+                .findFirst();
+    }
+
+    @Override
+    public @NotNull List<Head> findHeadsByTerm(String searchTerm) {
+        return dataStore.getHeads()
+                .stream()
+                .filter(head -> Utils.stringMatch(head.getName(), searchTerm)
+                        || head.getSearchableBy().stream().anyMatch(s1 -> Utils.stringMatch(s1, searchTerm)))
                 .toList();
     }
 
     @Override
-    public @NotNull List<Head> findHeadByCategory(HeadCategory category) {
+    public @NotNull List<Head> findHeadsByCategory(HeadCategory category) {
         return dataStore.getHeads()
                 .stream()
                 .filter(head -> Utils.stringMatch(head.getCategoryName(), category.getName()))
@@ -111,7 +124,7 @@ public class MineHeadsMinestomImpl extends Extension implements MineHeads {
     }
 
     @Override
-    public @NotNull List<Head> findHeadByCategoryName(String name) {
+    public @NotNull List<Head> findHeadsByCategoryName(String name) {
         return dataStore.getHeads()
                 .stream()
                 .filter(head -> Utils.stringMatch(head.getCategoryName(), name))
@@ -131,6 +144,11 @@ public class MineHeadsMinestomImpl extends Extension implements MineHeads {
     @Override
     public @NotNull ItemStack getItemStack(Head head) {
         return converter.playerItemStack(head);
+    }
+
+    @Override
+    public @NotNull Optional<Head> getHeadFrom(ItemStack itemStack) {
+        return converter.headFromItemStack(dataStore.getHeads(), itemStack);
     }
 
     @Override

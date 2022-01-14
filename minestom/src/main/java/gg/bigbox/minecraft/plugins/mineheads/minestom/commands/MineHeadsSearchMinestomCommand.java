@@ -28,7 +28,7 @@ public class MineHeadsSearchMinestomCommand extends Command {
         ));
 
         addSyntax((sender, context) -> {
-            var heads = extension.findHeadByTerm(context.get(searchTermArgument));
+            var heads = extension.findHeadsByTerm(context.get(searchTermArgument));
 
             // Create the inventory for the heads
             Inventory inventory = new Inventory(InventoryType.CHEST_6_ROW, "Heads by " + context.get(searchTermArgument));

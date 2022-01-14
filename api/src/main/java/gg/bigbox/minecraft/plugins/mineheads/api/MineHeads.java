@@ -18,13 +18,22 @@ public interface MineHeads {
     boolean isHead(ItemStack itemStack);
 
     /**
-     * Tries to find a head with the provided name.
-     * It will search for the exact name.
+     * Tries to find a head with the provided id
+     * on the specified provider.
+     *
+     * @param headId The id to find.
+     * @return A head if found, empty optional otherwise.
+     */
+    @NotNull Optional<Head> findHeadById(String headId, String providerName);
+
+    /**
+     * Tries to find a head with the provided name
+     * on the specified provider.
      *
      * @param name The name to find.
      * @return A head if found, empty optional otherwise.
      */
-    @NotNull Optional<Head> findHead(String name);
+    @NotNull Optional<Head> findHeadByName(String name, String providerName);
 
     /**
      * Tries to find heads that contain
@@ -33,7 +42,7 @@ public interface MineHeads {
      * @param searchTerm The head search term
      * @return Heads if found, otherwise empty list.
      */
-    @NotNull List<Head> findHeadByTerm(String searchTerm);
+    @NotNull List<Head> findHeadsByTerm(String searchTerm);
 
     /**
      * Tries to find heads that are of the specified
@@ -42,7 +51,7 @@ public interface MineHeads {
      * @param category The category to find heads for.
      * @return A list of heads of that category.
      */
-    @NotNull List<Head> findHeadByCategory(HeadCategory category);
+    @NotNull List<Head> findHeadsByCategory(HeadCategory category);
 
     /**
      * Tries to find heads that are of the specified
@@ -51,7 +60,7 @@ public interface MineHeads {
      * @param name The category name to find heads for.
      * @return A list of heads of that category.
      */
-    @NotNull List<Head> findHeadByCategoryName(String name);
+    @NotNull List<Head> findHeadsByCategoryName(String name);
 
     /**
      * Retrieves a list of all the available head categories.
@@ -77,6 +86,8 @@ public interface MineHeads {
      * @return The generated itemstack.
      */
     @NotNull ItemStack getItemStack(Head head);
+
+    @NotNull Optional<Head> getHeadFrom(ItemStack itemStack);
 
     /**
      * Triggers a data store refresh.

@@ -9,6 +9,7 @@ import net.minestom.server.item.metadata.PlayerHeadMeta;
 import net.minestom.server.tag.Tag;
 
 import java.util.List;
+import java.util.Optional;
 
 public class MineHeadsMinestomConverter {
 
@@ -43,7 +44,20 @@ public class MineHeadsMinestomConverter {
     }
 
     public boolean isHead(ItemStack itemStack) {
-        return itemStack.hasTag(mineHeadsIdTag);
+        return itemStack.hasTag(mineHeadsIdTag) && itemStack.hasTag(mineHeadsProviderTag);
+    }
+
+    public Optional<Head> headFromItemStack(List<Head> heads, ItemStack itemStack) {
+        if (!isHead(itemStack)) {
+            return Optional.empty();
+        }
+
+        return heads.stream()
+                .filter(
+                        head -> Utils.stringMatch(head.getId(), itemStack.getTag(mineHeadsIdTag))
+                                && Utils.stringMatch(head.getProviderName(), itemStack.getTag(mineHeadsProviderTag))
+                )
+                .findFirst();
     }
 
 }
