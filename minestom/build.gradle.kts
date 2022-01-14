@@ -7,7 +7,7 @@ plugins {
 dependencies {
     implementation(project(":api"))
 
-    implementation("com.github.MinestomBrick:SmartInvs:-SNAPSHOT")
+    implementation("com.github.MinestomBrick:SmartInvs:8e89a2e41f")
 }
 
 tasks {
