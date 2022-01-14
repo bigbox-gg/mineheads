@@ -38,6 +38,8 @@ public class MineHeadsMinestomCommand extends Command {
      * @param commandName The command name
      */
     private boolean isAllowed(CommandSender player, String commandName) {
-        return player instanceof Player && player.hasPermission("mineheads.");
+        //return player instanceof Player && player.hasPermission("mineheads.");
+
+        return player instanceof Player;
     }
 }

@@ -31,7 +31,7 @@ public class MineHeadsSearchMinestomCommand extends Command {
             var heads = extension.findHeadByTerm(context.get(searchTermArgument));
 
             // Create the inventory for the heads
-            Inventory inventory = new Inventory(InventoryType.CHEST_6_ROW, "Heads by " + searchTermArgument);
+            Inventory inventory = new Inventory(InventoryType.CHEST_6_ROW, "Heads by " + context.get(searchTermArgument));
 
             inventory.addItemStacks(
                     heads.stream().limit(54).map(extension::getItemStack).toList(),
@@ -62,6 +62,8 @@ public class MineHeadsSearchMinestomCommand extends Command {
      * @param commandName The command name
      */
     private boolean isAllowed(CommandSender player, String commandName) {
-        return player instanceof Player && player.hasPermission("mineheads.");
+        //return player instanceof Player && player.hasPermission("mineheads.");
+
+        return player instanceof Player;
     }
 }
