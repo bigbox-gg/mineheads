@@ -15,6 +15,8 @@ public class MinecraftHeadsHeadImpl implements Head {
 
     private String value;
 
+    private String categoryName = "";
+
     public MinecraftHeadsHeadImpl() {
         // empty constructor for gson
     }
@@ -28,6 +30,18 @@ public class MinecraftHeadsHeadImpl implements Head {
     @Override
     public @NotNull String getName() {
         return name;
+    }
+
+    @Override
+    public @NotNull String getCategoryName() {
+        return categoryName;
+    }
+
+    @Override
+    public Head setCategoryName(@NotNull String name) {
+        this.categoryName = name;
+
+        return this;
     }
 
     @Override

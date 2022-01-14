@@ -1,6 +1,7 @@
 package gg.bigbox.minecraft.plugins.mineheads.minestom;
 
 import gg.bigbox.minecraft.plugins.mineheads.api.Head;
+import gg.bigbox.minecraft.plugins.mineheads.api.HeadCategory;
 import gg.bigbox.minecraft.plugins.mineheads.api.MineHeads;
 import gg.bigbox.minecraft.plugins.mineheads.api.MineHeadsDatastore;
 import gg.bigbox.minecraft.plugins.mineheads.api.events.MineHeadsReadyEvent;
@@ -12,7 +13,6 @@ import net.minestom.server.item.ItemStack;
 import net.minestom.server.item.metadata.PlayerHeadMeta;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -64,15 +64,26 @@ public class MineHeadsMinestomImpl extends Extension implements MineHeads {
 
     @Override
     public @NotNull List<Head> findHeadByTerm(String searchTerm) {
-        ArrayList<Head> tempList = new ArrayList<>();
+        return dataStore.getHeads()
+                .stream()
+                .filter(head -> head.getSearchableBy().contains(searchTerm))
+                .toList();
+    }
 
-        for (int i = 0; i < dataStore.getHeads().size(); i++) {
-            if (dataStore.getHeads().get(i).getSearchableBy().contains(searchTerm)) {
-                tempList.add(dataStore.getHeads().get(i));
-            }
-        }
+    @Override
+    public @NotNull List<Head> findHeadByCategory(HeadCategory category) {
+        return dataStore.getHeads()
+                .stream()
+                .filter(head -> head.getCategoryName().equals(category.getName()))
+                .toList();
+    }
 
-        return tempList;
+    @Override
+    public @NotNull List<Head> findHeadByCategoryName(String name) {
+        return dataStore.getHeads()
+                .stream()
+                .filter(head -> head.getCategoryName().equals(name))
+                .toList();
     }
 
     @Override

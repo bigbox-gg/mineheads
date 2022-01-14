@@ -10,6 +10,10 @@ public interface Head {
 
     @NotNull String getName();
 
+    @NotNull String getCategoryName();
+
+    Head setCategoryName(@NotNull String name);
+
     @NotNull List<String> getSearchableBy();
 
     @NotNull String getSkinData();

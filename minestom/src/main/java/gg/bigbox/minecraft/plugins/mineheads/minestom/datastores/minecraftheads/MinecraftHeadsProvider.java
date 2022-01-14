@@ -66,7 +66,12 @@ public class MinecraftHeadsProvider implements MineHeadsDatastore {
             }
 
             // Add it to heads list
-            heads.addAll(loadCategory(category));
+            heads.addAll(
+                    loadCategory(category)
+                            .stream()
+                            .map(head -> head.setCategoryName(category.getName()))
+                            .toList()
+            );
         }
 
         // Advise every listener that the database has been refreshed.

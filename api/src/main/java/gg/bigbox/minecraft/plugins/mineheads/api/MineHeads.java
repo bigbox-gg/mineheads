@@ -27,13 +27,31 @@ public interface MineHeads {
     @NotNull Optional<Head> findHead(String name);
 
     /**
-     * Tries to find the number of heads that contain
-     * the typed search term.
+     * Tries to find heads that contain
+     * the specified search term.
      *
      * @param searchTerm The head search term
      * @return Heads if found, otherwise empty list.
      */
     @NotNull List<Head> findHeadByTerm(String searchTerm);
+
+    /**
+     * Tries to find heads that are of the specified
+     * category.
+     *
+     * @param category The category to find heads for.
+     * @return A list of heads of that category.
+     */
+    @NotNull List<Head> findHeadByCategory(HeadCategory category);
+
+    /**
+     * Tries to find heads that are of the specified
+     * category.
+     *
+     * @param category The category to find heads for.
+     * @return A list of heads of that category.
+     */
+    @NotNull List<Head> findHeadByCategoryName(String name);
 
     /**
      * Retrieves the base PlayerHeadMeta of the
