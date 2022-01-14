@@ -9,7 +9,6 @@ Current supported heads providers:
 ## TODO-LIST:
 
 - GUI for easy picking of heads
-- Handling of head place
 
 ---
 
@@ -17,4 +16,6 @@ Current supported heads providers:
 
 - [BigBox.GG Team](https://bigbox.gg/)
 - All the amazing [contributors](https://github.com/bigbox-gg/mineheads/graphs/contributors)
+- The [minestom discord](https://minestom.net/discord)
+- The [minecraft heads](https://minecraft-heads.com/) api
 
