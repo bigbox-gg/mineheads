@@ -29,6 +29,7 @@ public class MineHeadsMinestomImpl extends Extension implements MineHeads {
     @SneakyThrows
     @Override
     public void preInitialize() {
+        // Create extension directory if non-existent
         if (!getDataDirectory().toFile().exists()) {
             if (!getDataDirectory().toFile().mkdir()) {
                 getLogger().warn("Unable to create extension data directory.");
