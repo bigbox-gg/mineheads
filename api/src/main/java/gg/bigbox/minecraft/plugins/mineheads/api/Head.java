@@ -1,15 +1,19 @@
 package gg.bigbox.minecraft.plugins.mineheads.api;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.List;
 
 public interface Head {
 
-    String getId();
+    @NotNull String getId();
 
-    String getName();
+    @NotNull String getName();
 
-    List<String> getSearchableBy();
+    @NotNull List<String> getSearchableBy();
 
-    String getSkinData();
+    @NotNull String getSkinData();
+
+    @NotNull String getProviderName();
 
 }

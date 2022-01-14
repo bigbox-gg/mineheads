@@ -10,6 +10,7 @@ import lombok.SneakyThrows;
 import net.minestom.server.extensions.Extension;
 import net.minestom.server.item.ItemStack;
 import net.minestom.server.item.metadata.PlayerHeadMeta;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +19,7 @@ import java.util.Optional;
 public class MineHeadsMinestomImpl extends Extension implements MineHeads {
 
     @Getter
-    private final MineHeadMinestomConverter converter = new MineHeadMinestomConverter();
+    private final MineHeadsMinestomConverter converter = new MineHeadsMinestomConverter();
 
     @Getter
     private final MineHeadsDatastore dataStore = new MinecraftHeadsProvider(
@@ -51,7 +52,7 @@ public class MineHeadsMinestomImpl extends Extension implements MineHeads {
     }
 
     @Override
-    public Optional<Head> findHead(String name) {
+    public @NotNull Optional<Head> findHead(String name) {
         for (int i = 0; i < dataStore.getHeads().size(); i++) {
             if (dataStore.getHeads().get(i).getName().equals(name)) {
                 return Optional.of(dataStore.getHeads().get(i));
@@ -62,7 +63,7 @@ public class MineHeadsMinestomImpl extends Extension implements MineHeads {
     }
 
     @Override
-    public List<Head> findHeadByTerm(String searchTerm) {
+    public @NotNull List<Head> findHeadByTerm(String searchTerm) {
         ArrayList<Head> tempList = new ArrayList<>();
 
         for (int i = 0; i < dataStore.getHeads().size(); i++) {
@@ -75,12 +76,12 @@ public class MineHeadsMinestomImpl extends Extension implements MineHeads {
     }
 
     @Override
-    public PlayerHeadMeta getPlayerHead(Head head) {
+    public @NotNull PlayerHeadMeta getPlayerHead(Head head) {
         return converter.playerHead(head);
     }
 
     @Override
-    public ItemStack getItemStack(Head head) {
+    public @NotNull ItemStack getItemStack(Head head) {
         return converter.playerItemStack(head);
     }
 }

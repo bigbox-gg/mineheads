@@ -1,6 +1,9 @@
 package gg.bigbox.minecraft.plugins.mineheads.minestom.datastores.minecraftheads;
 
-public enum MinecraftHeadsCategories {
+import gg.bigbox.minecraft.plugins.mineheads.api.HeadCategory;
+import lombok.Getter;
+
+public enum MinecraftHeadsCategories implements HeadCategory {
 
     ALPHABET("alphabet", "alphabet.json"),
     ANIMALS("animals", "animals.json"),
@@ -13,13 +16,13 @@ public enum MinecraftHeadsCategories {
     MONSTERS("monsters", "monsters.json"),
     PLANTS("plants", "plants.json");
 
-    public final String apiCategoryName;
+    @Getter
+    private final String name;
 
     public final String fileName;
 
-    MinecraftHeadsCategories(String apiCategoryName, String fileName) {
-        this.apiCategoryName = apiCategoryName;
+    MinecraftHeadsCategories(String name, String fileName) {
+        this.name = name;
         this.fileName = fileName;
     }
-
 }

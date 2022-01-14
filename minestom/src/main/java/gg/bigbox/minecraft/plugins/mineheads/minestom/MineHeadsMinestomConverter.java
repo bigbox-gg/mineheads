@@ -8,7 +8,9 @@ import net.minestom.server.item.Material;
 import net.minestom.server.item.metadata.PlayerHeadMeta;
 import net.minestom.server.tag.Tag;
 
-public class MineHeadMinestomConverter {
+import java.util.List;
+
+public class MineHeadsMinestomConverter {
 
     private static final Tag<String> mineHeadsIdTag = Tag.String("mineheads-head");
 
@@ -27,7 +29,14 @@ public class MineHeadMinestomConverter {
                 .withMeta(playerHead(head))
                 .withAmount(1)
                 .withDisplayName(Component.text(head.getName()))
-                .withTag(mineHeadsIdTag, head.getId());
+                .withTag(mineHeadsIdTag, head.getId())
+                .withLore(List.of(
+                        Component.text(head.getName()),
+                        Component.newline(),
+                        Component.text(head.getSearchableBy().toString()),
+                        Component.newline(),
+                        Component.text(head.getProviderName())
+                ));
 
         return itemStack;
     }

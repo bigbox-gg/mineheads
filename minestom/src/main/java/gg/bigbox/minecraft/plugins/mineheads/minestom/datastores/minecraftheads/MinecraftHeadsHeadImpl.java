@@ -1,6 +1,7 @@
 package gg.bigbox.minecraft.plugins.mineheads.minestom.datastores.minecraftheads;
 
 import gg.bigbox.minecraft.plugins.mineheads.api.Head;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
@@ -20,22 +21,27 @@ public class MinecraftHeadsHeadImpl implements Head {
 
 
     @Override
-    public String getId() {
+    public @NotNull String getId() {
         return uuid;
     }
 
     @Override
-    public String getName() {
+    public @NotNull String getName() {
         return name;
     }
 
     @Override
-    public List<String> getSearchableBy() {
+    public @NotNull List<String> getSearchableBy() {
         return tags;
     }
 
     @Override
-    public String getSkinData() {
+    public @NotNull String getSkinData() {
         return value;
+    }
+
+    @Override
+    public @NotNull String getProviderName() {
+        return "minecraft-heads.com";
     }
 }

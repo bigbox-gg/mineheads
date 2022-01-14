@@ -2,6 +2,7 @@ package gg.bigbox.minecraft.plugins.mineheads.api;
 
 import net.minestom.server.item.ItemStack;
 import net.minestom.server.item.metadata.PlayerHeadMeta;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 import java.util.Optional;
@@ -23,7 +24,7 @@ public interface MineHeads {
      * @param name The name to find.
      * @return A head if found, empty optional otherwise.
      */
-    Optional<Head> findHead(String name);
+    @NotNull Optional<Head> findHead(String name);
 
     /**
      * Tries to find the number of heads that contain
@@ -32,21 +33,31 @@ public interface MineHeads {
      * @param searchTerm The head search term
      * @return Heads if found, otherwise empty list.
      */
-    List<Head> findHeadByTerm(String searchTerm);
+    @NotNull List<Head> findHeadByTerm(String searchTerm);
 
     /**
-     * @param head
-     * @return
+     * Retrieves the base PlayerHeadMeta of the
+     * specified head.
+     *
+     * @param head The heat to get the PlayerHeadMeta for.
+     * @return The generated PlayerHeadMeta.
      */
-    PlayerHeadMeta getPlayerHead(Head head);
+    @NotNull PlayerHeadMeta getPlayerHead(Head head);
 
-    ItemStack getItemStack(Head head);
+    /**
+     * Retrieves an itemstack with quantity 1
+     * of the specified head.
+     *
+     * @param head The head to get the itemstack for.
+     * @return The generated itemstack.
+     */
+    @NotNull ItemStack getItemStack(Head head);
 
     /**
      * Retrieves the configured data-store.
      *
      * @return Retrieves the configured data-store.
      */
-    MineHeadsDatastore getDataStore();
+    @NotNull MineHeadsDatastore getDataStore();
 
 }

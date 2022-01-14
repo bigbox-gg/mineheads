@@ -60,7 +60,7 @@ public class MinecraftHeadsProvider implements MineHeadsDatastore {
         for (MinecraftHeadsCategories category : MinecraftHeadsCategories.values()) {
             // Download the category
             if (!downloadCategory(category)) {
-                logger.log(Level.WARNING, "Unable to download category {} from minecraftheads api.", category.name());
+                logger.log(Level.WARNING, "Unable to download category {} from minecraftheads api.", category.getName());
 
                 continue;
             }
@@ -82,7 +82,7 @@ public class MinecraftHeadsProvider implements MineHeadsDatastore {
     public boolean downloadCategory(MinecraftHeadsCategories category) {
         try {
             URL downloadUrl = new URL(
-                    String.format("https://minecraft-heads.com/scripts/api.php?cat=%s&tags=true", category.apiCategoryName)
+                    String.format("https://minecraft-heads.com/scripts/api.php?cat=%s&tags=true", category.getName())
             );
 
             InputStream in = downloadUrl.openStream();
