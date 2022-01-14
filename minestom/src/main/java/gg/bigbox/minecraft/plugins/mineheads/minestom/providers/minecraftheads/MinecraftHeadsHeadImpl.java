@@ -4,6 +4,7 @@ import gg.bigbox.minecraft.plugins.mineheads.api.Head;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class MinecraftHeadsHeadImpl implements Head {
@@ -47,6 +48,10 @@ public class MinecraftHeadsHeadImpl implements Head {
 
     @Override
     public @NotNull List<String> getSearchableBy() {
+        if (tags == null) {
+            return Collections.emptyList();
+        }
+
         return Arrays.stream(tags.split(",")).toList();
     }
 
