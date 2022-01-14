@@ -68,7 +68,7 @@ public class MineHeadsMinestomImpl extends Extension implements MineHeads {
     @Override
     public @NotNull Optional<Head> findHead(String name) {
         for (int i = 0; i < dataStore.getHeads().size(); i++) {
-            if (dataStore.getHeads().get(i).getName().equalsIgnoreCase(name)) {
+            if (Utils.stringMatch(dataStore.getHeads().get(i).getName(), name)) {
                 return Optional.of(dataStore.getHeads().get(i));
             }
         }
@@ -80,7 +80,7 @@ public class MineHeadsMinestomImpl extends Extension implements MineHeads {
     public @NotNull List<Head> findHeadByTerm(String searchTerm) {
         return dataStore.getHeads()
                 .stream()
-                .filter(head -> head.getSearchableBy().stream().anyMatch(searchTerm::equalsIgnoreCase))
+                .filter(head -> head.getSearchableBy().stream().anyMatch(s1 -> Utils.stringMatch(s1, searchTerm)))
                 .toList();
     }
 
@@ -88,7 +88,7 @@ public class MineHeadsMinestomImpl extends Extension implements MineHeads {
     public @NotNull List<Head> findHeadByCategory(HeadCategory category) {
         return dataStore.getHeads()
                 .stream()
-                .filter(head -> head.getCategoryName().equalsIgnoreCase(category.getName()))
+                .filter(head -> Utils.stringMatch(head.getCategoryName(), category.getName()))
                 .toList();
     }
 
@@ -96,7 +96,7 @@ public class MineHeadsMinestomImpl extends Extension implements MineHeads {
     public @NotNull List<Head> findHeadByCategoryName(String name) {
         return dataStore.getHeads()
                 .stream()
-                .filter(head -> head.getCategoryName().equalsIgnoreCase(name))
+                .filter(head -> Utils.stringMatch(head.getCategoryName(), name))
                 .toList();
     }
 
