@@ -13,6 +13,7 @@ import java.util.List;
 public class MineHeadsMinestomConverter {
 
     private static final Tag<String> mineHeadsIdTag = Tag.String("mineheads-head");
+    private static final Tag<String> mineHeadsProviderTag = Tag.String("mineheads-head-provider");
 
     public PlayerHeadMeta playerHead(Head head) {
         return new PlayerHeadMeta.Builder()
@@ -31,6 +32,7 @@ public class MineHeadsMinestomConverter {
                 .withAmount(1)
                 .withDisplayName(Component.text(head.getName()))
                 .withTag(mineHeadsIdTag, head.getId())
+                .withTag(mineHeadsProviderTag, head.getProviderName())
                 .withLore(List.of(
                         Component.text("Tags: " + head.getSearchableBy()),
                         Component.empty(),
