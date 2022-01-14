@@ -1,5 +1,5 @@
 {
   "entrypoint": "gg.bigbox.minecraft.plugins.mineheads.minestom.MineHeadsMinestomImpl",
   "name": "MineHeads",
-  "version": "1.0.0"
+  "version": "0.1"
 }

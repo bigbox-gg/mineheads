@@ -1,11 +1,20 @@
 package gg.bigbox.minecraft.plugins.mineheads.api;
 
-import gg.bigbox.minecraft.plugins.mineheads.api.Models.HeadImpl;
+import net.minestom.server.item.ItemStack;
+import net.minestom.server.item.metadata.PlayerHeadMeta;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface MineHeads {
+
+    /**
+     * Checks if an itemstack is part of MineHeads.
+     *
+     * @param itemStack The itemstack to check
+     * @return True or false.
+     */
+    boolean isHead(ItemStack itemStack);
 
     /**
      * Tries to find a head with the provided name.
@@ -14,7 +23,7 @@ public interface MineHeads {
      * @param name The name to find.
      * @return A head if found, empty optional otherwise.
      */
-    Optional<HeadImpl> findHead(String name);
+    Optional<Head> findHead(String name);
 
     /**
      * Tries to find the number of heads that contain
@@ -23,14 +32,21 @@ public interface MineHeads {
      * @param searchTerm The head search term
      * @return Heads if found, otherwise empty list.
      */
-    List<HeadImpl> findHeadByTerm(String searchTerm);
+    List<Head> findHeadByTerm(String searchTerm);
 
     /**
-     * Force the datastore to refresh.
-     * NOTE: Definitely expensive.
+     * @param head
+     * @return
      */
-    void refreshDatastore();
+    PlayerHeadMeta getPlayerHead(Head head);
 
-    MineHeadsConverter<?> getConverter();
+    ItemStack getItemStack(Head head);
+
+    /**
+     * Retrieves the configured data-store.
+     *
+     * @return Retrieves the configured data-store.
+     */
+    MineHeadsDatastore getDataStore();
 
 }

@@ -20,10 +20,12 @@ allprojects {
     apply(plugin = "io.freefair.lombok")
 
     group = "gg.bigbox.minecraft.plugins.mineheads"
-    version = "1.0"
+    version = "0.1"
 
     repositories {
         mavenCentral()
+        maven(url = "https://repo.spongepowered.org/maven")
+        maven(url = "https://jitpack.io")
     }
 
     java {
@@ -35,5 +37,7 @@ allprojects {
     dependencies {
         // https://mvnrepository.com/artifact/com.google.code.gson/gson
         implementation("com.google.code.gson:gson:2.8.9")
+
+        implementation("com.github.Minestom:Minestom:0366027c5d")
     }
 }

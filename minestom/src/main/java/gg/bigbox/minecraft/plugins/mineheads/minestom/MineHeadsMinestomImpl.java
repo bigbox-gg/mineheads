@@ -1,46 +1,42 @@
 package gg.bigbox.minecraft.plugins.mineheads.minestom;
 
+import gg.bigbox.minecraft.plugins.mineheads.api.Head;
 import gg.bigbox.minecraft.plugins.mineheads.api.MineHeads;
-import gg.bigbox.minecraft.plugins.mineheads.api.MinecraftHeads.MinecraftHeadsProvider;
-import gg.bigbox.minecraft.plugins.mineheads.api.Models.HeadImpl;
-import gg.bigbox.minecraft.plugins.mineheads.minestom.Events.MineHeadsReadyMinestomEvent;
+import gg.bigbox.minecraft.plugins.mineheads.api.MineHeadsDatastore;
+import gg.bigbox.minecraft.plugins.mineheads.api.events.MineHeadsReadyEvent;
+import gg.bigbox.minecraft.plugins.mineheads.minestom.datastores.minecraftheads.MinecraftHeadsProvider;
 import lombok.Getter;
-import net.minestom.server.MinecraftServer;
+import lombok.SneakyThrows;
 import net.minestom.server.extensions.Extension;
+import net.minestom.server.item.ItemStack;
+import net.minestom.server.item.metadata.PlayerHeadMeta;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.logging.Logger;
 
 public class MineHeadsMinestomImpl extends Extension implements MineHeads {
-
-    private ArrayList<HeadImpl> data;
 
     @Getter
     private final MineHeadMinestomConverter converter = new MineHeadMinestomConverter();
 
-    private final MinecraftHeadsProvider mcHeadsProvider = new MinecraftHeadsProvider(
-            getDataDirectory(),
-            (Logger) getLogger()
+    @Getter
+    private final MineHeadsDatastore dataStore = new MinecraftHeadsProvider(
+            getEventNode(),
+            getDataDirectory()
     );
 
+    @SneakyThrows
     @Override
     public void preInitialize() {
-        data = mcHeadsProvider.refreshDatastore();
-
-        // Check if we have data
-        if (data.isEmpty()) {
-            getLogger().warn("Unable to download all categories from MinecraftHeads. Disabling.");
-
-            MinecraftServer.getExtensionManager().unloadExtension("MineHeads");
-        }
+        // Refresh the datastore by default.
+        dataStore.refresh();
     }
 
     @Override
     public void initialize() {
-        // init
-        getEventNode().call(new MineHeadsReadyMinestomEvent());
+        // Advise everyone that MineHeads is ready
+        getEventNode().call(new MineHeadsReadyEvent());
     }
 
 
@@ -50,10 +46,15 @@ public class MineHeadsMinestomImpl extends Extension implements MineHeads {
     }
 
     @Override
-    public Optional<HeadImpl> findHead(String name) {
-        for (int i = 0; i < data.size(); i++) {
-            if (data.get(i).getName().equals(name)) {
-                return Optional.of(data.get(i));
+    public boolean isHead(ItemStack itemStack) {
+        return converter.isHead(itemStack);
+    }
+
+    @Override
+    public Optional<Head> findHead(String name) {
+        for (int i = 0; i < dataStore.getHeads().size(); i++) {
+            if (dataStore.getHeads().get(i).getName().equals(name)) {
+                return Optional.of(dataStore.getHeads().get(i));
             }
         }
 
@@ -61,12 +62,12 @@ public class MineHeadsMinestomImpl extends Extension implements MineHeads {
     }
 
     @Override
-    public List<HeadImpl> findHeadByTerm(String searchTerm) {
-        ArrayList<HeadImpl> tempList = new ArrayList<>();
+    public List<Head> findHeadByTerm(String searchTerm) {
+        ArrayList<Head> tempList = new ArrayList<>();
 
-        for (int i = 0; i < data.size(); i++) {
-            if (data.get(i).getSearchableBy().contains(searchTerm)) {
-                tempList.add(data.get(i));
+        for (int i = 0; i < dataStore.getHeads().size(); i++) {
+            if (dataStore.getHeads().get(i).getSearchableBy().contains(searchTerm)) {
+                tempList.add(dataStore.getHeads().get(i));
             }
         }
 
@@ -74,7 +75,12 @@ public class MineHeadsMinestomImpl extends Extension implements MineHeads {
     }
 
     @Override
-    public void refreshDatastore() {
-        data = mcHeadsProvider.refreshDatastore();
+    public PlayerHeadMeta getPlayerHead(Head head) {
+        return converter.playerHead(head);
+    }
+
+    @Override
+    public ItemStack getItemStack(Head head) {
+        return converter.playerItemStack(head);
     }
 }

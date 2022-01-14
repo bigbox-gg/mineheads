@@ -1,4 +1,4 @@
-package gg.bigbox.minecraft.plugins.mineheads.api.Models;
+package gg.bigbox.minecraft.plugins.mineheads.api;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package gg.bigbox.minecraft.plugins.mineheads.api.MinecraftHeads;
+package gg.bigbox.minecraft.plugins.mineheads.minestom.datastores.minecraftheads;
 
 public enum MinecraftHeadsCategories {
 
@@ -9,7 +9,7 @@ public enum MinecraftHeadsCategories {
     FOOD_DRINKS("food-drinks", "food_drinks.json"),
     HUMANS("humans", "humans.json"),
     HUMANOID("humanoid", "humanoid.json"),
-    MISCELLANEOUS("miscellanous", "miscellanous.json"),
+    MISCELLANEOUS("miscellaneous", "miscellaneous.json"),
     MONSTERS("monsters", "monsters.json"),
     PLANTS("plants", "plants.json");
 

@@ -1,6 +1,6 @@
-package gg.bigbox.minecraft.plugins.mineheads.api.MinecraftHeads;
+package gg.bigbox.minecraft.plugins.mineheads.minestom.datastores.minecraftheads;
 
-import gg.bigbox.minecraft.plugins.mineheads.api.Models.Head;
+import gg.bigbox.minecraft.plugins.mineheads.api.Head;
 
 import java.util.List;
 
