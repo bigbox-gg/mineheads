@@ -64,4 +64,15 @@ public class MinecraftHeadsHeadImpl implements Head {
     public @NotNull String getProviderName() {
         return "minecraft-heads.com";
     }
+
+    @Override
+    public String toString() {
+        return "MinecraftHeadsHeadImpl{" +
+                "name='" + name + '\'' +
+                ", uuid='" + uuid + '\'' +
+                ", tags='" + tags + '\'' +
+                ", value='" + value + '\'' +
+                ", categoryName='" + categoryName + '\'' +
+                '}';
+    }
 }
