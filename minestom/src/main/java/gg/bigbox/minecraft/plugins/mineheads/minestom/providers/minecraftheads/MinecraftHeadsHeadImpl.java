@@ -1,4 +1,4 @@
-package gg.bigbox.minecraft.plugins.mineheads.minestom.datastores.minecraftheads;
+package gg.bigbox.minecraft.plugins.mineheads.minestom.providers.minecraftheads;
 
 import gg.bigbox.minecraft.plugins.mineheads.api.Head;
 import org.jetbrains.annotations.NotNull;

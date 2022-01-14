@@ -54,6 +54,13 @@ public interface MineHeads {
     @NotNull List<Head> findHeadByCategoryName(String name);
 
     /**
+     * Retrieves a list of all the available head categories.
+     *
+     * @return Retrieves a list of all the available head categories.
+     */
+    @NotNull List<HeadCategory> getCategories();
+
+    /**
      * Retrieves the base PlayerHeadMeta of the
      * specified head.
      *
@@ -72,10 +79,10 @@ public interface MineHeads {
     @NotNull ItemStack getItemStack(Head head);
 
     /**
-     * Retrieves the configured data-store.
-     *
-     * @return Retrieves the configured data-store.
+     * Triggers a data store refresh.
+     * NOTE: Definitely expensive and not intended
+     * to be abused or called frequently.
      */
-    @NotNull MineHeadsDatastore getDataStore();
+    void refresh();
 
 }

@@ -5,9 +5,11 @@ import gg.bigbox.minecraft.plugins.mineheads.api.HeadCategory;
 import gg.bigbox.minecraft.plugins.mineheads.api.MineHeads;
 import gg.bigbox.minecraft.plugins.mineheads.api.MineHeadsDatastore;
 import gg.bigbox.minecraft.plugins.mineheads.api.events.MineHeadsReadyEvent;
-import gg.bigbox.minecraft.plugins.mineheads.minestom.datastores.minecraftheads.MinecraftHeadsProvider;
+import gg.bigbox.minecraft.plugins.mineheads.minestom.commands.MineHeadsMinestomCommand;
+import gg.bigbox.minecraft.plugins.mineheads.minestom.datastores.MineHeadsDatastoreMinestomImpl;
 import lombok.Getter;
 import lombok.SneakyThrows;
+import net.minestom.server.MinecraftServer;
 import net.minestom.server.extensions.Extension;
 import net.minestom.server.item.ItemStack;
 import net.minestom.server.item.metadata.PlayerHeadMeta;
@@ -22,7 +24,7 @@ public class MineHeadsMinestomImpl extends Extension implements MineHeads {
     private final MineHeadsMinestomConverter converter = new MineHeadsMinestomConverter();
 
     @Getter
-    private final MineHeadsDatastore dataStore = new MinecraftHeadsProvider(
+    private final MineHeadsDatastore dataStore = new MineHeadsDatastoreMinestomImpl(
             getEventNode(),
             getDataDirectory()
     );
@@ -36,6 +38,8 @@ public class MineHeadsMinestomImpl extends Extension implements MineHeads {
 
     @Override
     public void initialize() {
+        MinecraftServer.getCommandManager().register(new MineHeadsMinestomCommand(this));
+
         // Advise everyone that MineHeads is ready
         getEventNode().call(new MineHeadsReadyEvent());
     }
@@ -87,6 +91,11 @@ public class MineHeadsMinestomImpl extends Extension implements MineHeads {
     }
 
     @Override
+    public @NotNull List<HeadCategory> getCategories() {
+        return dataStore.getCategories();
+    }
+
+    @Override
     public @NotNull PlayerHeadMeta getPlayerHead(Head head) {
         return converter.playerHead(head);
     }
@@ -94,5 +103,13 @@ public class MineHeadsMinestomImpl extends Extension implements MineHeads {
     @Override
     public @NotNull ItemStack getItemStack(Head head) {
         return converter.playerItemStack(head);
+    }
+
+    @Override
+    public void refresh() {
+        // Do it as an async task
+        MinecraftServer.getSchedulerManager()
+                .buildTask(dataStore::refresh)
+                .schedule();
     }
 }
