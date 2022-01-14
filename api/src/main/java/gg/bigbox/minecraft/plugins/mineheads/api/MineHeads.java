@@ -46,9 +46,9 @@ public interface MineHeads {
 
     /**
      * Tries to find heads that are of the specified
-     * category.
+     * category name.
      *
-     * @param category The category to find heads for.
+     * @param name The category name to find heads for.
      * @return A list of heads of that category.
      */
     @NotNull List<Head> findHeadByCategoryName(String name);
