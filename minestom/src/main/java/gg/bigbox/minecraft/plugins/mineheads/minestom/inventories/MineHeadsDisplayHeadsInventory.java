@@ -31,7 +31,7 @@ public record MineHeadsDisplayHeadsInventory(
             int finalI = i;
             items[i] = ClickableItem.of(
                     extension.getItemStack(heads.get(i)),
-                    inventoryPreClickEvent -> player.setItemInMainHand(extension.getItemStack(heads.get(finalI)))
+                    inventoryPreClickEvent -> player.getInventory().addItemStack(extension.getItemStack(heads.get(finalI)))
             );
         }
 
