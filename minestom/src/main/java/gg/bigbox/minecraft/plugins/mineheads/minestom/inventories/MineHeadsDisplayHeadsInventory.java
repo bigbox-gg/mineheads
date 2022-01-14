@@ -9,6 +9,7 @@ import fr.minuskube.inv.content.SlotIterator;
 import gg.bigbox.minecraft.plugins.mineheads.api.Head;
 import gg.bigbox.minecraft.plugins.mineheads.api.MineHeads;
 import gg.bigbox.minecraft.plugins.mineheads.minestom.MineHeadsMinestomImpl;
+import net.kyori.adventure.text.Component;
 import net.minestom.server.entity.Player;
 import net.minestom.server.inventory.InventoryType;
 import net.minestom.server.item.ItemStack;
@@ -40,9 +41,11 @@ public record MineHeadsDisplayHeadsInventory(
 
         pagination.addToIterator(contents.newIterator(SlotIterator.Type.HORIZONTAL, 0, 0));
 
-        contents.set(5, 3, ClickableItem.of(ItemStack.of(Material.ARROW),
+        contents.set(5, 3, ClickableItem.of(
+                ItemStack.of(Material.ARROW).withDisplayName(Component.text("Previous Page")),
                 e -> INVENTORY(extension, heads).open(player, pagination.previous().getPage())));
-        contents.set(5, 5, ClickableItem.of(ItemStack.of(Material.ARROW),
+        contents.set(5, 5, ClickableItem.of(
+                ItemStack.of(Material.ARROW).withDisplayName(Component.text("Next Page")),
                 e -> INVENTORY(extension, heads).open(player, pagination.next().getPage())));
     }
 
