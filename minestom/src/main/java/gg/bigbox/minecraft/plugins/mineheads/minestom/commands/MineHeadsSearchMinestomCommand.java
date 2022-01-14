@@ -34,7 +34,7 @@ public class MineHeadsSearchMinestomCommand extends Command {
             Inventory inventory = new Inventory(InventoryType.CHEST_6_ROW, "Heads by " + context.get(searchTermArgument));
 
             inventory.addItemStacks(
-                    heads.stream().limit(54).map(extension::getItemStack).toList(),
+                    heads.stream().limit(45).map(extension::getItemStack).toList(),
                     TransactionOption.ALL
             );
 
