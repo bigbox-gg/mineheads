@@ -6,6 +6,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.UUID;
 
 public class MinecraftHeadsHeadImpl implements Head {
 
@@ -27,6 +28,11 @@ public class MinecraftHeadsHeadImpl implements Head {
     @Override
     public @NotNull String getId() {
         return uuid;
+    }
+
+    @Override
+    public @NotNull UUID getSkullUUID() {
+        return UUID.fromString(uuid);
     }
 
     @Override

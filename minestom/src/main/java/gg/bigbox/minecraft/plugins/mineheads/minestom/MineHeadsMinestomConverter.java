@@ -19,6 +19,7 @@ public class MineHeadsMinestomConverter {
                 .playerSkin(
                         new PlayerSkin(head.getSkinData(), "")
                 )
+                .skullOwner(head.getSkullUUID())
                 .build();
     }
 
@@ -32,7 +33,7 @@ public class MineHeadsMinestomConverter {
                 .withTag(mineHeadsIdTag, head.getId())
                 .withLore(List.of(
                         Component.text("Tags: " + head.getSearchableBy()),
-                        Component.newline(),
+                        Component.empty(),
                         Component.text("Provider: " + head.getProviderName())
                 ));
 
