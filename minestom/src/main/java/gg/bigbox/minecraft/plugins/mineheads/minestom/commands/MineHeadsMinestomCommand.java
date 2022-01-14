@@ -26,6 +26,7 @@ public class MineHeadsMinestomCommand extends Command {
                         .text("Usage:")
                         .append(Component.newline())
                         .append(Component.text("/mineheads search <search-term> - searches heads matching the term."))
+                        .append(Component.newline())
                         .append(Component.text("/mineheads category <category> - all heads of the specified category."))
         );
     }
