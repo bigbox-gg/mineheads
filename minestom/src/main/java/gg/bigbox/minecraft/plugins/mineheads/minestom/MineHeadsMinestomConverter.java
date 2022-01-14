@@ -31,11 +31,9 @@ public class MineHeadsMinestomConverter {
                 .withDisplayName(Component.text(head.getName()))
                 .withTag(mineHeadsIdTag, head.getId())
                 .withLore(List.of(
-                        Component.text(head.getName()),
+                        Component.text("Tags: " + head.getSearchableBy()),
                         Component.newline(),
-                        Component.text(head.getSearchableBy().toString()),
-                        Component.newline(),
-                        Component.text(head.getProviderName())
+                        Component.text("Provider: " + head.getProviderName())
                 ));
 
         return itemStack;
