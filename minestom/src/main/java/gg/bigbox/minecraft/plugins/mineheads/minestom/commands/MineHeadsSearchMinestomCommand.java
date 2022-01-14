@@ -3,6 +3,7 @@ package gg.bigbox.minecraft.plugins.mineheads.minestom.commands;
 import gg.bigbox.minecraft.plugins.mineheads.api.Head;
 import gg.bigbox.minecraft.plugins.mineheads.api.MineHeads;
 import gg.bigbox.minecraft.plugins.mineheads.minestom.Utils;
+import gg.bigbox.minecraft.plugins.mineheads.minestom.inventories.MineHeadsDisplayHeadsInventory;
 import net.kyori.adventure.text.Component;
 import net.minestom.server.command.CommandSender;
 import net.minestom.server.command.builder.Command;
@@ -10,9 +11,6 @@ import net.minestom.server.command.builder.CommandContext;
 import net.minestom.server.command.builder.arguments.ArgumentString;
 import net.minestom.server.command.builder.arguments.ArgumentType;
 import net.minestom.server.entity.Player;
-import net.minestom.server.inventory.Inventory;
-import net.minestom.server.inventory.InventoryType;
-import net.minestom.server.inventory.TransactionOption;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -43,15 +41,7 @@ public class MineHeadsSearchMinestomCommand extends Command {
             }
 
             // Create the inventory for the heads
-            Inventory inventory = new Inventory(InventoryType.CHEST_6_ROW, "Heads by " + context.get(searchTermArgument));
-
-            inventory.addItemStacks(
-                    heads.stream().limit(45).map(extension::getItemStack).toList(),
-                    TransactionOption.ALL
-            );
-
-            p.openInventory(inventory);
-
+            MineHeadsDisplayHeadsInventory.INVENTORY(extension, heads).open(p);
         }, searchTermArgument);
     }
 

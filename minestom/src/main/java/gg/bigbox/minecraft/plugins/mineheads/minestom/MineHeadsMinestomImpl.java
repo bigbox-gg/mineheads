@@ -1,5 +1,6 @@
 package gg.bigbox.minecraft.plugins.mineheads.minestom;
 
+import fr.minuskube.inv.InventoryManager;
 import gg.bigbox.minecraft.plugins.mineheads.api.Head;
 import gg.bigbox.minecraft.plugins.mineheads.api.HeadCategory;
 import gg.bigbox.minecraft.plugins.mineheads.api.MineHeads;
@@ -11,6 +12,8 @@ import gg.bigbox.minecraft.plugins.mineheads.minestom.datastores.MineHeadsDatast
 import lombok.Getter;
 import lombok.SneakyThrows;
 import net.minestom.server.MinecraftServer;
+import net.minestom.server.event.Event;
+import net.minestom.server.event.EventNode;
 import net.minestom.server.event.player.PlayerUseItemEvent;
 import net.minestom.server.extensions.Extension;
 import net.minestom.server.item.ItemStack;
@@ -27,6 +30,9 @@ public class MineHeadsMinestomImpl extends Extension implements MineHeads {
 
     @Getter
     private MineHeadsDatastore dataStore;
+
+    @Getter
+    private static InventoryManager inventoryManager;
 
     @SneakyThrows
     @Override
@@ -51,6 +57,13 @@ public class MineHeadsMinestomImpl extends Extension implements MineHeads {
     @Override
     public void initialize() {
         MinecraftServer.getCommandManager().register(new MineHeadsMinestomCommand(this));
+
+        EventNode<Event> simpleInventoriesEvents = EventNode.all("smartinvs-listener");
+
+        getEventNode().addChild(simpleInventoriesEvents);
+
+        inventoryManager = new InventoryManager(this);
+        inventoryManager.init(simpleInventoriesEvents);
 
         // Advise everyone that MineHeads is ready
         getEventNode().call(new MineHeadsReadyEvent());
