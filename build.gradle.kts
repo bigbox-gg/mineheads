@@ -38,6 +38,6 @@ allprojects {
         // https://mvnrepository.com/artifact/com.google.code.gson/gson
         implementation("com.google.code.gson:gson:2.8.9")
 
-        implementation("com.github.Minestom:Minestom:0366027c5d")
+        compileOnly("com.github.Minestom:Minestom:0366027c5d")
     }
 }
