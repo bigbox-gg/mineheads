@@ -18,6 +18,7 @@ public class MineHeadsMinestomCommand extends Command {
         setDefaultExecutor(this::defaultExecutor);
 
         addSubcommand(new MineHeadsSearchMinestomCommand(extension));
+        addSubcommand(new MineHeadsCategoryMinestomCommand(extension));
     }
 
     private void defaultExecutor(@NotNull CommandSender sender, @NotNull CommandContext context) {

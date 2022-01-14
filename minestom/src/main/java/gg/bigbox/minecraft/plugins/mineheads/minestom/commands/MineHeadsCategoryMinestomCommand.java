@@ -7,7 +7,6 @@ import net.kyori.adventure.text.Component;
 import net.minestom.server.command.CommandSender;
 import net.minestom.server.command.builder.Command;
 import net.minestom.server.command.builder.CommandContext;
-import net.minestom.server.command.builder.arguments.ArgumentString;
 import net.minestom.server.command.builder.arguments.ArgumentType;
 import net.minestom.server.entity.Player;
 import net.minestom.server.inventory.Inventory;
@@ -17,24 +16,25 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-public class MineHeadsSearchMinestomCommand extends Command {
-
-    public MineHeadsSearchMinestomCommand(MineHeads extension) {
-        super("search", "s");
+public class MineHeadsCategoryMinestomCommand extends Command {
+    public MineHeadsCategoryMinestomCommand(MineHeads extension) {
+        super("category", "ct");
 
         setCondition(this::isAllowed);
         setDefaultExecutor(this::defaultExecutor);
 
-        ArgumentString searchTermArgument = ArgumentType.String("search-term");
+        var categoriesArgument = ArgumentType.Word("categories").from(
+                extension.getCategoriesNames()
+        );
 
-        searchTermArgument.setCallback((sender, exception) -> sender.sendMessage(
-                Utils.sendErrorMessage(Component.text("The search term " + exception.getInput() + " is not valid."))
+        categoriesArgument.setCallback((sender, exception) -> sender.sendMessage(
+                Utils.sendErrorMessage(Component.text("The category " + exception.getInput() + " is not valid."))
         ));
 
         addSyntax((sender, context) -> {
             Player p = (Player) sender;
 
-            List<Head> heads = extension.findHeadsByTerm(context.get(searchTermArgument));
+            List<Head> heads = extension.findHeadsByCategoryName(context.get(categoriesArgument));
 
             if (heads.isEmpty()) {
                 p.sendMessage(Utils.sendErrorMessage(Component.text("No heads found.")));
@@ -43,7 +43,7 @@ public class MineHeadsSearchMinestomCommand extends Command {
             }
 
             // Create the inventory for the heads
-            Inventory inventory = new Inventory(InventoryType.CHEST_6_ROW, "Heads by " + context.get(searchTermArgument));
+            Inventory inventory = new Inventory(InventoryType.CHEST_6_ROW, "Heads by " + context.get(categoriesArgument));
 
             inventory.addItemStacks(
                     heads.stream().limit(45).map(extension::getItemStack).toList(),
@@ -51,8 +51,7 @@ public class MineHeadsSearchMinestomCommand extends Command {
             );
 
             p.openInventory(inventory);
-
-        }, searchTermArgument);
+        }, categoriesArgument);
     }
 
     private void defaultExecutor(@NotNull CommandSender sender, @NotNull CommandContext context) {
@@ -60,7 +59,7 @@ public class MineHeadsSearchMinestomCommand extends Command {
                 Component
                         .text("Usage:")
                         .append(Component.newline())
-                        .append(Component.text("/mineheads search <search-term> - searches heads matching the term."))
+                        .append(Component.text("/mineheads category <category> - all heads of the specified category."))
         );
     }
 

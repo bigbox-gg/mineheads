@@ -137,6 +137,17 @@ public class MineHeadsMinestomImpl extends Extension implements MineHeads {
     }
 
     @Override
+    public @NotNull String[] getCategoriesNames() {
+        String[] categories = new String[getCategories().size()];
+
+        for (int i = 0; i < getCategories().size(); i++) {
+            categories[i] = getCategories().get(i).getName();
+        }
+
+        return categories;
+    }
+
+    @Override
     public @NotNull PlayerHeadMeta getPlayerHead(Head head) {
         return converter.playerHead(head);
     }

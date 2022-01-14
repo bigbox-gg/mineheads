@@ -70,6 +70,13 @@ public interface MineHeads {
     @NotNull List<HeadCategory> getCategories();
 
     /**
+     * Retrieves a list of all the available head categories names.
+     *
+     * @return Retrieves a list of all the available head categories names.
+     */
+    @NotNull String[] getCategoriesNames();
+
+    /**
      * Retrieves the base PlayerHeadMeta of the
      * specified head.
      *
