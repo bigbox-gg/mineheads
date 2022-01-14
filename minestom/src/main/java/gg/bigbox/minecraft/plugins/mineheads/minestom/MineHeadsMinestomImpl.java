@@ -24,14 +24,23 @@ public class MineHeadsMinestomImpl extends Extension implements MineHeads {
     private final MineHeadsMinestomConverter converter = new MineHeadsMinestomConverter();
 
     @Getter
-    private final MineHeadsDatastore dataStore = new MineHeadsDatastoreMinestomImpl(
-            getEventNode(),
-            getDataDirectory()
-    );
+    private MineHeadsDatastore dataStore;
 
     @SneakyThrows
     @Override
     public void preInitialize() {
+        if (!getDataDirectory().toFile().exists()) {
+            if (!getDataDirectory().toFile().mkdir()) {
+                getLogger().warn("Unable to create extension data directory.");
+            }
+        }
+
+        // Init the datastore
+        dataStore = new MineHeadsDatastoreMinestomImpl(
+                getEventNode(),
+                getDataDirectory()
+        );
+
         // Refresh the datastore by default.
         dataStore.refresh();
     }

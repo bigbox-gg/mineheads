@@ -3,6 +3,7 @@ package gg.bigbox.minecraft.plugins.mineheads.minestom.providers.minecraftheads;
 import gg.bigbox.minecraft.plugins.mineheads.api.Head;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class MinecraftHeadsHeadImpl implements Head {
@@ -11,7 +12,7 @@ public class MinecraftHeadsHeadImpl implements Head {
 
     private String uuid;
 
-    private List<String> tags;
+    private String tags;
 
     private String value;
 
@@ -46,7 +47,7 @@ public class MinecraftHeadsHeadImpl implements Head {
 
     @Override
     public @NotNull List<String> getSearchableBy() {
-        return tags;
+        return Arrays.stream(tags.split(",")).toList();
     }
 
     @Override
